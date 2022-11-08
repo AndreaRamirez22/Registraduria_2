@@ -119,7 +119,7 @@ def crearResultado(id_Mesa,id_Candidato):
 
 """ Modificación de Resultado (Mesa y Candidato) """
 
-@app.route("/resultados/Mesa/<string:id_Mesa>/Candidato/<string:id_Candidato>",methods=['PUT'])
+@app.route("/resultados/<string:id_Resultado>/Mesa/<string:id_Mesa>/Candidato/<string:id_Candidato>",methods=['PUT'])
 def modificarResultado(id_Resultado,id_Mesa,id_Candidato):
     data = request.get_json()
     json=miControladorResultado.update(id_Resultado,data,id_Mesa,id_Candidato)

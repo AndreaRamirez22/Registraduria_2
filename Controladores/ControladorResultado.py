@@ -34,7 +34,7 @@ class ControladorResultado():
         elResultado=Resultado(self.repositorioResultado.findById(id))
         elResultado.numero_mesa=infoResultado["numero_mesa"]
         elResultado.cedula_candidato = infoResultado["cedula_candidato"]
-        elResultado.notaFinal=infoResultado["numero_votos"]
+        elResultado.numero_votos=infoResultado["numero_votos"]
         laMesa = Mesa(self.repositorioMesas.findById(id_Mesa))
         elcandidato = Candidato(self.repositorioCandidatos.findById(id_Candidato))
         elResultado.Mesa = laMesa
