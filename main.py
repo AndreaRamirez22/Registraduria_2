@@ -5,16 +5,28 @@ from flask_cors import CORS
 import json
 from waitress import serve
 
+import dns.resolver
+dns.resolver.default_resolver=dns.resolver.Resolver(configure=False)
+dns.resolver.default_resolver.nameservers=['8.8.8.8'] # this is a google public dns server,  use whatever dns server you like here
+# as a test, dns.resolver.query('www.google.com') should return an answer, not an exception
+
+
+
+
 app=Flask(__name__)
 cors = CORS(app)
+
 from Controladores.ControladorMesa import ControladorMesa
 from Controladores.ControladorPartido import ControladorPartido
 from Controladores.ControladorCandidato import ControladorCandidato
 from Controladores.ControladorResultado import ControladorResultado
+
+
 miControladorMesa=ControladorMesa()
 miControladorPartido=ControladorPartido()
 miControladorCandidato=ControladorCandidato()
 miControladorResultado=ControladorResultado()
+
 ###################################################################################
 @app.route("/",methods=['GET'])
 def test():
@@ -96,18 +108,19 @@ def asignarPartidoACandidato(id,id_Partido):
     return jsonify(json)
 
 
-# ############################RESULTADOS#############################
+#############################RESULTADOS#############################
 
 @app.route("/resultados",methods=['GET'])
-def getresultados():
+def getResultados():
     json=miControladorResultado.index()
     return jsonify(json)
+
 @app.route("/resultados/<string:id>",methods=['GET'])
 def getResultado(id):
     json=miControladorResultado.show(id)
     return jsonify(json)
 
-"""    Asignacion Mesa y Candidato a resultado   """
+""" Asignacion Mesa y Candidato a resultado   """
 
 
 @app.route("/resultados/Mesa/<string:id_Mesa>/Candidato/<string:id_Candidato>",methods=['POST'])
@@ -143,7 +156,6 @@ def resultadosEnMesa(id_Mesa):
     return jsonify(json)
 
 
-
 @app.route("/resultados/votos_mayores",methods=['GET'])
 def getMayorvotoCandidato():
     json=miControladorResultado.Resultadovotacion()
@@ -152,17 +164,10 @@ def getMayorvotoCandidato():
 
 
 
-
-
 @app.route("/resultados/promedio_notas/Candidato/<string:id_Candidato>",methods=['GET'])
 def getPromedioNotasEnCandidato(id_Candidato):
     json=miControladorResultado.promedioNotasEnCandidato(id_Candidato)
     return jsonify(json)
-
-
-
-
-
 
 
 

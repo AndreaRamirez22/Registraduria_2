@@ -53,9 +53,8 @@ def getTotalVotosxCandidato(self):
 
 
 
-"""""""""""
 
-    def promedioNotasEnCandidato(self,id_Candidato):
+def promedioNotasEnCandidato(self,id_Candidato):
         query1 = {
           "$match": {"Candidato.$id": ObjectId(id_Candidato)}
         }
@@ -63,7 +62,7 @@ def getTotalVotosxCandidato(self):
           "$group": {
             "_id": "$Candidato",
             "promedio": {
-              "$avg": "$nota_final"
+              "$avg": "$numero_votos"
             }
           }
         }
@@ -71,4 +70,3 @@ def getTotalVotosxCandidato(self):
         return self.queryAggregation(pipeline)
 
 
-"""""""""""

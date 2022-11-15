@@ -9,13 +9,17 @@ from Repositorios.RepositorioCandidato import RepositorioCandidato
 class ControladorResultado():
     def __init__(self):
         self.repositorioResultado = RepositorioResultado()
+        print(self.repositorioResultado)
         self.repositorioMesas = RepositorioMesa()
+        print(self.repositorioMesas)
         self.repositorioCandidatos = RepositorioCandidato()
+        print(self.repositorioCandidatos)
+
     def index(self):
         return self.repositorioResultado.findAll()
-    """
-    Asignacion Mesa y Candidato a resultado
-    """
+
+    """  Asignacion Mesa y Candidato a resultado     """
+
     def create(self,infoResultado,id_Mesa,id_Candidato):
         nuevaResultado=Resultado(infoResultado)
         laMesa=Mesa(self.repositorioMesas.findById(id_Mesa))
@@ -55,6 +59,9 @@ class ControladorResultado():
         return self.repositorioResultado.getListadoResultadosporMesa(id_Mesa)
 
     "Obertener Partidos Politicos con cantidad de votos"
+
+    def Resultadovotacion(self):
+        return self.repositorioResultado.getMayorvotoCandidato()
 
     def Resultadovotacion(self):
         return self.repositorioResultado.getMayorvotoCandidato()
